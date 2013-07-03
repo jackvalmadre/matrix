@@ -242,7 +242,13 @@ loop:
 // Get the element in the i'th row and j'th column.
 func (A *ComplexMatrix) GetAt(i int, j int) (val complex128) {
 	step := A.LeadingIndex()
-	val = A.elements[j*step : j*step+A.Cols()][i]
+	if i < 0 {
+		i += A.Rows()
+	}
+	if j < 0 {
+		j += A.Cols()
+	}
+	val = A.elements[j*step+i]
 	return
 }
 
