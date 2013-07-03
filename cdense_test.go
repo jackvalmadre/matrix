@@ -7,38 +7,38 @@
 package matrix
 
 import (
-    //"fmt"
-    "testing"
+	//"fmt"
+	"testing"
 )
 
 func TestA(t *testing.T) {
-    t.Logf("Test complex matrix printing.\n")
-    A := ComplexZeros(2, 2)
-    t.Logf("A:\n%v\n", A)
+	t.Logf("Test complex matrix printing.\n")
+	A := ComplexZeros(2, 2)
+	t.Logf("A:\n%v\n", A)
 }
 
 func TestCParse(t *testing.T) {
-    t.Logf("Test matrix string parsing.\n")
-    s := `[(1.0+0i) (+2-1i) (3.0+0i); ( 4.2-.5i) (-5 -.1i) (6+0i)]`
-    A, err := ComplexParse(s)
-    if err != nil {
-        t.Fatal(err)
-    }
-    t.Logf("A :\n%v\n", A)
-    t.Logf("A size: %d rows, %d cols\n", A.Rows(), A.Cols())
-    t.Logf("A elems: %d\n", A.NumElements())
-    D := A.Transpose()
-    t.Logf("D = A.transpose:\n%v\n", D)
-    r, c := D.Size()
-    t.Logf("D size: %d rows, %d cols\n", r, c)
+	t.Logf("Test matrix string parsing.\n")
+	s := `[(1.0+0i) (+2-1i) (3.0+0i); ( 4.2-.5i) (-5 -.1i) (6+0i)]`
+	A, err := ComplexParse(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("A :\n%v\n", A)
+	t.Logf("A size: %d rows, %d cols\n", A.Rows(), A.Cols())
+	t.Logf("A elems: %d\n", A.NumElements())
+	D := A.Transpose()
+	t.Logf("D = A.transpose:\n%v\n", D)
+	r, c := D.Size()
+	t.Logf("D size: %d rows, %d cols\n", r, c)
 }
 
 func TestRand(t *testing.T) {
-    t.Logf("Test matrix creation.\n")
-    A := ComplexUniform(3, 2)
-    t.Logf("A :\n%v\n", A)
-    B := ComplexUniformSymmetric(2)
-    t.Logf("B :\n%v\n", B)
+	t.Logf("Test matrix creation.\n")
+	A := ComplexUniform(3, 2)
+	t.Logf("A :\n%v\n", A)
+	B := ComplexUniformSymmetric(2)
+	t.Logf("B :\n%v\n", B)
 }
 
 /*

@@ -8,17 +8,17 @@ package matrix
 
 // Test for equality. Return true if for all i,j: all A[i,j] = B[i,j]
 func (A *ComplexMatrix) Equal(B *ComplexMatrix) bool {
-    if A.Rows() != B.Rows() || A.Cols() != B.Cols() {
-        return false
-    }
-    for k := 0; k < A.NumElements(); k++ {
-        rka := realIndex(k, A.Rows(), A.LeadingIndex())
-        rkb := realIndex(k, B.Rows(), B.LeadingIndex())
-        if A.elements[rka] != B.elements[rkb] {
-            return false
-        }
-    }
-    return true
+	if A.Rows() != B.Rows() || A.Cols() != B.Cols() {
+		return false
+	}
+	for k := 0; k < A.NumElements(); k++ {
+		rka := realIndex(k, A.Rows(), A.LeadingIndex())
+		rkb := realIndex(k, B.Rows(), B.LeadingIndex())
+		if A.elements[rka] != B.elements[rkb] {
+			return false
+		}
+	}
+	return true
 }
 
 // Local Variables:
