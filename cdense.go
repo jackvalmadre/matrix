@@ -128,6 +128,56 @@ func ComplexMatrixFromTable(data [][]complex128, order DataOrder) *ComplexMatrix
 	return makeComplexMatrix(rows, cols, elements)
 }
 
+func StackComplex(dir Stacking, mats ...*ComplexMatrix) (*ComplexMatrix, []int) {
+	maxc := 0
+	maxr := 0
+	N := 0
+	M := 0
+
+	for _, m := range mats {
+		m, n := m.Size()
+		M += m
+		N += n
+		if m > maxr {
+			maxr = m
+		}
+		if n > maxc {
+			maxc = n
+		}
+	}
+
+	var A *ComplexMatrix
+	indexes := make([]int, 0)
+	if dir == StackDown {
+		A = ComplexZeros(M, maxc)
+		row := 0
+		for _, mat := range mats {
+			m, n := mat.Size()
+			for i := 0; i < m; i++ {
+				for j := 0; j < n; j++ {
+					A.SetAt(mat.GetAt(i, j), row+i, j)
+				}
+			}
+			indexes = append(indexes, mat.Rows())
+			row += mat.Rows()
+		}
+	} else {
+		A = ComplexZeros(maxr, N)
+		col := 0
+		for _, mat := range mats {
+			m, n := mat.Size()
+			for i := 0; i < m; i++ {
+				for j := 0; j < n; j++ {
+					A.SetAt(mat.GetAt(i, j), i, col+j)
+				}
+			}
+			indexes = append(indexes, mat.Cols())
+			col += mat.Cols()
+		}
+	}
+	return A, indexes
+}
+
 // Create new zero filled matrix.
 func ComplexZeros(rows, cols int) *ComplexMatrix {
 	A := makeComplexMatrix(rows, cols, make([]complex128, rows*cols))
