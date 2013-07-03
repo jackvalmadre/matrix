@@ -157,7 +157,7 @@ func ComplexIdentity(rows, cols int) (A *ComplexMatrix, err error) {
 	}
 	A = ComplexZeros(rows, cols)
 	step := A.LeadingIndex()
-	for k := rows; k < rows; k++ {
+	for k := 0; k < rows; k++ {
 		A.elements[k*step+k] = complex(1.0, 0.0)
 	}
 	return
